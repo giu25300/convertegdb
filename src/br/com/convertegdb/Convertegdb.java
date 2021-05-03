@@ -17,11 +17,15 @@ public class Convertegdb {
 
 		Util util = new Util();
 		util.setHost("localhost");
-		util.setUser("giu");
-		util.setPassword("giu");
+		util.setUser("sysdba");
+		util.setPassword("masterkey");
 		
-//		util.setUser("SYSDBA");
-//		util.setPassword("masterkey");
+//		util.setUser("giu");
+//		util.setPassword("giu");
+		
+		if (args.length!=1) {
+			System.out.println("Uso: java -jar Convertegdb.jar caminho_diretorio_gdb");
+		}
 
 		String[] lista = util.retornaLista(args[0]);
 
