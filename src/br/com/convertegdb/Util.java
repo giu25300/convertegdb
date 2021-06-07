@@ -14,9 +14,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.zip.*;
+import java.util.logging.Level;
+import java.util.logging.LogManager;
+import java.util.logging.Logger;
 
 /**
- * @author mex9856
+ * @author Giuliano Rosa da Silva
+ * @email giulianors@gmail.com
  *
  */
 public class Util {
@@ -30,6 +34,8 @@ public class Util {
 	private String host;
 	private boolean erro;
 	private String mensagem;
+	
+	private MyLogHandler myloghandler;
 
 	java.sql.Driver d = null;
 	java.sql.Connection conn = null;
@@ -40,6 +46,14 @@ public class Util {
 	ZipOutputStream zipOut;
 
 	List<String> tabelas;
+	
+	public MyLogHandler getMyloghandler() {
+		return myloghandler;
+	}
+
+	public void setMyloghandler(MyLogHandler myloghandler) {
+		this.myloghandler = myloghandler;
+	}
 
 	public String getDatabase() {
 		return database;
@@ -77,12 +91,12 @@ public class Util {
 		return String.format("jdbc:firebirdsql:%s/3050:%s", this.host, this.database);
 	}
 
-	public boolean Inicia() throws SQLException {
+	public boolean Inicia() {
 
-		if (this.database == null || this.database == "") {
+		if (this.database == null || this.database.isEmpty()) {
 			erro = true; //
-			mensagem = "Database não informado.";
-			System.out.println(mensagem);
+			mensagem = "Database não informado.";			
+			Logger.getLogger("AnotherName").log(Level.SEVERE, mensagem);
 			return false;
 		}
 
@@ -99,15 +113,13 @@ public class Util {
 			Class.forName(driverName);
 
 			conn = DriverManager.getConnection(this.databaseUrl, props);
-		} catch (ClassNotFoundException c) {
-			c.printStackTrace();
-			return false;
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Exception c) {
+			Logger.getLogger("AnotherName").log(Level.SEVERE, c.getMessage());
+			c.printStackTrace();			
 			return false;
 		}
-
-		System.out.println("Conexão aberta.");
+		
+		Logger.getLogger("AnotherName").log(Level.INFO, "Conexão aberta.");
 
 		return true;
 	}
@@ -131,8 +143,9 @@ public class Util {
 				tabelas.add(rs.getString(1).trim());
 			}
 			return true;
-		} catch (Exception e) {
+		} catch (Exception e) {			
 			e.printStackTrace();
+			Logger.getLogger("AnotherName").log(Level.SEVERE, e.getMessage());
 			return false;
 		}
 
@@ -251,8 +264,7 @@ public class Util {
 					File f = new File(nomearq);
 					f.delete();
 				}
-
-			} // for (String s : tabelas) {
+			}
 			fechaZip();
 		} else
 			return false;
@@ -276,5 +288,5 @@ public class Util {
 		String[] textFilesList = directoryPath.list(textFilefilter);
 
 		return textFilesList;
-	}
+	}	
 }
