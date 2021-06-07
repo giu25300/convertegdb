@@ -1,9 +1,10 @@
-… necess·rio que o arquivo gdb seja convertido para FDB,
-usando a ferramenta FDBConverter, que È gratuita.
+√â necess√°rio que o arquivo gdb seja convertido para FDB,
+usando a ferramenta FDBConverter, que √© gratuita.
 
 linha de comando:
 
 java -jar Convertegdb.jar caminho_diretorio_arquivos_gdb
-Cada tabela ser· extraÌda e salva em csv. No final todos
-os arquivos estar„o dentro do arquivo zipado, e os arquivos
-csv tempor·rios criados excluÌdos do sistema.
+
+Cada tabela ser√° extra√≠da e salva em csv. No final todos
+os arquivos estar√£o dentro do arquivo zipado, e os arquivos
+csv tempor√°rios criados exclu√≠dos do sistema.
