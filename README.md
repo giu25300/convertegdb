@@ -1,4 +1,4 @@
-É necessário que o arquivo gdb seja convertido para FDB,
+#É necessário que o arquivo gdb seja convertido para FDB,
 usando a ferramenta FDBConverter, que é gratuita.
 
 linha de comando:
